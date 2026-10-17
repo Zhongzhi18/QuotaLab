@@ -1,0 +1,41 @@
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;line-height:1.45;background:var(--ql-bg);font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-variant-numeric:tabular-nums}
+h1{font-size:23px;font-weight:620;letter-spacing:-.035em;margin-bottom:5px}
+h2{font-size:15px;font-weight:600}
+h3{font-size:13px;font-weight:600}
+p{color:var(--ql-text-secondary)}
+small,.caption{font-size:11px;color:var(--ql-text-muted)}
+.app-shell{grid-template-columns:218px minmax(0,1fr)}
+.sidebar{background:var(--bg-elevated);padding:17px 10px 13px}
+.brand{gap:9px;padding:0 9px 26px}
+.brand-mark{width:33px;height:33px;border-radius:8px;background:var(--ql-surface-2);border-color:var(--ql-border-hover);box-shadow:none;color:var(--ql-accent);font-size:12px}
+.brand-name b{font-size:14px;font-weight:630}
+.brand .version{font-size:10px;line-height:1.4;background:var(--ql-surface-2);border-radius:999px;padding:1px 6px;color:var(--ql-text-muted)}
+.nav-link{min-height:35px;gap:10px;font-size:12px;font-weight:450;padding:0 10px}
+.nav-link[aria-current="page"]{background:var(--ql-surface-2);color:var(--ql-text)}
+.nav-link[aria-current="page"] .nav-icon{color:var(--ql-accent)}
+.nav-icon{width:17px;height:17px;font-size:0}
+.nav-icon svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.nav-divider{margin:11px 9px}
+.sidebar-foot{font-size:11px;padding:11px 9px 4px}
+.sidebar-foot strong{font-size:11px;font-weight:560}
+.sidebar-toggle{bottom:80px}
+.topbar{height:56px;padding:0 27px}
+.breadcrumb{font-size:12px}
+.page{width:min(100%,1160px);padding:27px 30px 56px}
+.page-head{margin-bottom:21px}
+.page-head p{font-size:12px}
+.footer-note{padding:13px 30px;font-size:10px}
+.surface{border-radius:var(--ql-radius-lg)}
+.account-bar{font-size:11px;margin-bottom:15px;gap:9px}
+.account-bar .avatar{display:none}
+.account-bar .meta-separator{height:12px}
+.quota-layout{grid-template-columns:minmax(0,1.7fr) minmax(270px,.9fr);gap:16px}
+.secondary-quotas{gap:9px}
+.flow{grid-template-columns:minmax(0,1.55fr) minmax(260px,.7fr);gap:26px}
+#main:focus-visible{outline:0;box-shadow:none}
+@media(max-width:1120px){.app-shell{grid-template-columns:62px minmax(0,1fr)}.app-shell.expanded{grid-template-columns:218px minmax(0,1fr)}.sidebar{padding-left:8px;padding-right:8px}.sidebar-toggle{right:13px}.app-shell.expanded .sidebar-toggle{right:10px}}
+@media(max-width:760px){.app-shell,.app-shell.collapsed,.app-shell.expanded{display:block}.sidebar{width:246px}.topbar{height:54px;padding:0 15px}.page{padding:22px 16px 44px}.quota-layout,.flow{grid-template-columns:1fr}.footer-note{padding:12px 16px}}
+@media(max-width:530px){h1{font-size:21px}.account-bar{gap:7px}.top-actions{gap:5px}.secondary-quotas{grid-template-columns:1fr}.flow{gap:17px}}
+/* Hidden mobile navigation must not shadow content or retain off-screen focus. */
+@media(max-width:760px){.sidebar:not(.open){visibility:hidden}.sidebar.open{visibility:visible}}

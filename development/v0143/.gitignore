@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+build/
+dist/
+release/
+data/
+logs/
+evidence/
+PRIVATE-*/
+settings.json
+auth.json
+*.partial
+QuotaLab.spec
+*.lock
+*.log

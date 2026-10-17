@@ -1,0 +1,124 @@
+name: Windows preview release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v0.14.3-r31"
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-verify:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: development/v0143
+    steps:
+      - name: Check out source
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
+
+      - name: Set up the release Python version
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        with:
+          python-version: "3.14.0"
+
+      - name: Install the pinned packaging toolchain
+        run: python -m pip install --disable-pip-version-check -r requirements-build.txt
+
+      - name: Compile Python sources
+        run: python -m compileall -q quota_lab.py site/render_site.py
+
+      - name: Run focused product regressions
+        run: >-
+          python -m unittest
+          tests.test_ui_trust_r14
+          tests.test_i18n_surface
+          tests.test_usage_planner
+          tests.test_anchor_experiment
+          tests.test_plan_aware_v0143
+          tests.test_ui_polish_r19
+          tests.test_evolution_v014
+          tests.test_wake_adapter
+          tests.test_sidebar_hover_preview_v0143
+          tests.test_dashboard_open_r25
+          tests.test_ui_navigation_r7
+          tests.test_ui_polish_r13
+          tests.test_ui_refinement_r16
+          tests.test_desktop_notifications_r29
+          tests.test_desktop_notifications_r31
+          tests.test_interaction_v0131
+
+      - name: Install browser acceptance tools
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.61.0
+          python -m playwright install chromium
+
+      - name: Verify current browser flows with isolated mock data
+        run: python -m unittest -v tests.test_product_browser_r31.ProductR31BrowserTests
+
+      - name: Build the r31 Windows x64 portable package
+        run: ./scripts/build_windows_v0143.ps1 -BuildTag plan-aware-v0143-r31
+
+      - name: Smoke-test the extracted portable package in mock mode
+        run: >-
+          ./scripts/ci_smoke_portable_v0143.ps1
+          -ZipPath release/QuotaLab-0.14.3-Windows-Portable-r31.zip
+          -ExpectedVersion 0.14.3-plan-aware-preview
+          -Port 18894
+
+      - name: Verify release checksums
+        run: |
+          $zip = 'release/QuotaLab-0.14.3-Windows-Portable-r31.zip'
+          $sum = 'release/QuotaLab-0.14.3-SHA256-r31.txt'
+          $expected = (Get-Content -LiteralPath $sum | Select-Object -First 1).Split(' ')[0]
+          $actual = (Get-FileHash -Algorithm SHA256 -LiteralPath $zip).Hash.ToLowerInvariant()
+          if ($expected -ne $actual) { throw 'Portable ZIP checksum mismatch.' }
+
+      - name: Upload verified release assets
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: QuotaLab-v0.14.3-r31-Windows-x64
+          if-no-files-found: error
+          path: |
+            development/v0143/release/QuotaLab-0.14.3-Windows-Portable-r31.zip
+            development/v0143/release/QuotaLab-0.14.3-SHA256-r31.txt
+
+  create-draft-release:
+    if: github.event_name == 'push' && github.ref == 'refs/tags/v0.14.3-r31'
+    needs: build-and-verify
+    runs-on: windows-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Check out release notes
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
+
+      - name: Download verified assets
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: QuotaLab-v0.14.3-r31-Windows-x64
+          path: release-assets
+
+      - name: Create a draft prerelease for maintainer review
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: pwsh
+        run: |
+          gh release create $env:GITHUB_REF_NAME `
+            release-assets/QuotaLab-0.14.3-Windows-Portable-r31.zip `
+            release-assets/QuotaLab-0.14.3-SHA256-r31.txt `
+            --draft --prerelease --verify-tag `
+            --title 'QuotaLab v0.14.3 r31 · Windows preview' `
+            --notes-file development/v0143/docs/RELEASE_NOTES_v0143_r31.md

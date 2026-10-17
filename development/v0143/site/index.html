@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="QuotaLab 在你的 Windows 电脑上读取 Codex 客户端返回的额度信息，并帮助安排工作时段。">
+  <meta name="theme-color" content="#f3f7f5">
+  <title>QuotaLab · 本机规划，不托管你的数据</title>
+  <style>
+    :root { color-scheme: light; --ink: #16322e; --muted: #526b66; --line: #d6e2dd; --paper: #f3f7f5; --green: #236b55; --mint: #dff0e6; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.65 "Segoe UI", "Microsoft YaHei UI", sans-serif; }
+    a { color: var(--green); text-underline-offset: .2em; }
+    a:focus-visible { outline: 3px solid #a96513; outline-offset: 3px; border-radius: 4px; }
+    .wrap { width: min(1080px, calc(100% - 40px)); margin: auto; }
+    header { display: flex; justify-content: space-between; align-items: center; min-height: 76px; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; gap: 12px; align-items: center; color: var(--ink); font-weight: 700; font-size: 18px; text-decoration: none; }
+    .mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; color: #dff0c4; background: #16322e; font-size: 20px; }
+    nav { display: flex; gap: 22px; font-size: 14px; }
+    nav a { text-decoration: none; }
+    main { padding: 72px 0 60px; }
+    .hero { max-width: 760px; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; padding: 5px 11px; border-radius: 999px; color: var(--green); background: var(--mint); font-size: 13px; font-weight: 600; }
+    h1 { max-width: 740px; margin: 22px 0 14px; font-size: clamp(36px, 6vw, 58px); line-height: 1.15; letter-spacing: -.045em; }
+    .lead { max-width: 680px; margin: 0; color: var(--muted); font-size: 19px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 22px; }
+    .button { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; padding: 0 18px; border: 1px solid var(--green); border-radius: 12px; color: var(--green); font-weight: 650; text-decoration: none; transition: transform .16s ease, background-color .16s ease; }
+    .button.primary { color: #fff; background: var(--green); }
+    .button:hover { transform: translateY(-1px); background: var(--mint); }
+    .button.primary:hover { background: #195540; }
+    .fine { color: var(--muted); font-size: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 54px; }
+    .item { padding: 22px; border-top: 1px solid var(--line); }
+    .item h2 { margin: 0 0 8px; font-size: 17px; }
+    .item p { margin: 0; color: var(--muted); font-size: 15px; }
+    .notice { margin-top: 28px; padding: 18px 20px; border-left: 3px solid var(--green); background: #eaf2ee; }
+    .notice strong { display: block; margin-bottom: 4px; }
+    footer { padding: 24px 0 36px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    footer p { margin: 6px 0; }
+    @media (max-width: 720px) { .wrap { width: min(100% - 28px, 600px); } header { min-height: 64px; } nav { gap: 12px; font-size: 13px; } main { padding: 50px 0 40px; } .grid { grid-template-columns: 1fr; gap: 8px; margin-top: 36px; } .item { padding: 16px 0; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="#top" aria-label="QuotaLab 首页"><span class="mark" aria-hidden="true">Q</span><span>QuotaLab</span></a>
+      <nav aria-label="主要导航">
+        <a href="#how">怎么工作</a>
+        <a href="#privacy">隐私边界</a>
+        <a href="__REPOSITORY_URL__/releases">GitHub Releases</a>
+      </nav>
+    </header>
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <span class="eyebrow">Windows x64 · 本机运行 · 预览版</span>
+        <h1 id="hero-title">先看清额度，再安排重要工作。</h1>
+        <p class="lead">QuotaLab 读取本机 Codex 客户端返回的额度窗口，帮你把工作时段安排得更踏实。计划由你掌控，任务仍由你在 Codex 中启动。</p>
+        <div class="actions">
+          <a class="button primary" href="__REPOSITORY_URL__/releases">查看下载与版本</a>
+          <a class="button" href="__REPOSITORY_URL__">浏览源代码</a>
+        </div>
+        <p class="fine">当前为 Windows x64 便携预览包，不是安装器；请下载完整 ZIP 并核对随附的 SHA256。尚未提供 macOS 或 Linux 原生包。</p>
+        <p class="fine">是否已开放下载，以 Releases 页面实际显示为准。若还没有 r22 Release，请勿把 GitHub 的 “Source code” 压缩包当成可直接运行的应用。</p>
+      </section>
+      <section class="grid" id="how" aria-label="产品说明">
+        <article class="item"><h2>本机读取</h2><p>额度由已登录的 Codex 客户端提供。没有返回的窗口会明确显示不可用，不用套餐名称猜额度。</p></article>
+        <article class="item"><h2>你来安排</h2><p>计划和建议保存在这台电脑上。QuotaLab 不会替你启动 Codex、创建官方任务或发送模型请求。</p></article>
+        <article class="item" id="privacy"><h2>隐私边界清楚</h2><p>仪表盘只绑定本机回环地址，不是托管在网上的应用。没有默认遥测或历史上传；手动刷新公开状态会向官方状态站点发起请求。</p></article>
+      </section>
+      <aside class="notice">
+        <strong>本地应用网址不是公开网站地址</strong>
+        解压并启动 QuotaLab 后，仪表盘默认打开 <code>http://127.0.0.1:18861/</code>。GitHub 页面只负责介绍、下载和支持信息，无法连接你的电脑或读取本机数据。
+      </aside>
+    </main>
+    <footer>
+      <p>QuotaLab 为独立社区项目，与 OpenAI 或 Codex 官方无隶属关系。</p>
+      <p>本机数据默认不加密存储。分享诊断信息前请先检查内容并移除账户信息。</p>
+      <p><a href="__REPOSITORY_URL__/blob/main/PRIVACY.md">隐私说明</a> · <a href="__REPOSITORY_URL__/blob/main/SECURITY.md">安全政策</a> · <a href="__REPOSITORY_URL__/issues">问题反馈</a></p>
+    </footer>
+  </div>
+</body>
+</html>
