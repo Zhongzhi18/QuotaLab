@@ -35,10 +35,11 @@
 
 ## 开发与构建
 
-源码位于 `development/v0143`；根目录不混放旧版应用。普通运行不依赖第三方 Python 包；Windows 构建工具链见 `requirements-build.txt`。
+源码位于 `development/v0143`；根目录不混放旧版应用。Windows 源码运行需安装 `tzdata` 时区数据；完整 Windows 构建工具链见 `requirements-build.txt`。
 
 ```powershell
 cd development/v0143
+python -m pip install tzdata==2025.3
 python quota_lab.py start --mock --no-browser
 # 另开浏览器访问本机地址进行模拟体验；不读取真实额度。
 ```

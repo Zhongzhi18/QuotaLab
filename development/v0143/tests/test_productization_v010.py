@@ -123,7 +123,7 @@ class ProductBrowserTests(unittest.TestCase):
         self.state.orchestrator.data['preferences']['researchMode']=False
         self.state.orchestrator.recommendation_lifecycle.clock=time.time
         self.state.orchestrator.data['demands']=[];self.state.orchestrator.data['recommendations']=[]
-        self.context=self.browser.new_context(viewport={'width':1440,'height':900},timezone_id='Asia/Shanghai',permissions=['clipboard-read','clipboard-write'])
+        self.context=self.browser.new_context(viewport={'width':1440,'height':900},timezone_id='Asia/Shanghai',locale='zh-CN',permissions=['clipboard-read','clipboard-write'])
         self.page=self.context.new_page();self.errors=[];self.posts=[]
         self.page.on('pageerror',lambda e:self.errors.append(str(e)))
         self.page.on('request',lambda r:self.posts.append(r.url) if r.method=='POST' else None)
