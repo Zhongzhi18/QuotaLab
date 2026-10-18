@@ -60,7 +60,7 @@ class TrustFirstUiR14Tests(unittest.TestCase):
         version = (ROOT / "packaging" / "version_info-v0143-r14.txt").read_text(encoding="utf-8")
         self.assertIn("plan-aware-v0143-r14", build)
         self.assertIn("0.14.3.14", version)
-        self.assertIn("r31", self.art)
+        self.assertIn("v1.0.0", self.art)
         # Source CI must not depend on ignored, machine-local historical binaries.
         self.assertIn('plan-aware-v0143-r16', build)
         self.assertTrue((ROOT / 'packaging' / 'version_info-v0143-r16.txt').is_file())

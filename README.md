@@ -1,60 +1,70 @@
 # QuotaLab
 
-一个在本机查看 Codex 额度、安排工作时段并提醒开工的独立工具。
+把 Codex 额度和工作安排，放在同一个地方。
 
-**Windows x64 预览版 · v0.14.3 r31 · 非 OpenAI 官方产品**
+写到一半才发现额度不够，很容易打乱节奏。QuotaLab 会读取你当前账户的额度，帮你提前留出工作时段，在开工前提醒你，做完后也能留下简单的记录。
 
-## 它能帮你做什么
+[下载 Windows 版 v1.0.0](https://github.com/Zhongzhi18/QuotaLab/releases/download/v1.0.0/QuotaLab-1.0.0-Windows-x64.zip) · [使用指南](docs/使用指南.md) · [更新记录](CHANGELOG.md)
 
-- 查看当前已登录 Codex 客户端实际返回的额度与重置读数。
-- 保存工作计划，查看基于当前读数的建议；不把剩余百分比换算为保证可工作的时长。
-- 设置开工提醒。启用后可显示独立 Windows 桌面窗口，不依赖浏览器是否最小化；后台必须运行。
-- 记录工作结果，回顾自己的计划和工作负荷。
-- 整理官方定时任务说明，供你复制到官方应用核对创建；**不会自动创建或同步官方任务**。
+## 平时怎么用
 
-## 下载和首次使用
+先看一眼额度，再安排下一段工作。
 
-发布后请从本仓库的 **Releases** 下载具名的 `QuotaLab-0.14.3-Windows-Portable-r31.zip` 及其 SHA256 文件，不要把 GitHub 自动生成的 Source code ZIP 当作可运行应用。
+- **概览**：查看 Codex 返回的剩余额度、重置时间，以及接下来的安排。
+- **需求规划**：填上日期、开始和结束时间，保存后查看对应建议。
+- **开工提醒**：到点在桌面弹出独立窗口。浏览器可以最小化，QuotaLab 后台保持运行即可。
+- **使用洞察**：记录实际用了多久、完成了多少，回头看看自己的工作节奏。
+- **定时任务准备**：把任务内容和时间整理成说明，再复制到官方应用确认创建。
 
-1. 完整解压，双击 `QuotaLab.exe`，保留 `_internal` 文件夹。
-2. 确保 Codex 客户端已安装并登录，在概览检查额度读取时间。
-3. 新建一个将来的工作时段，保存后确认计划名与右侧建议一致。
-4. 需要桌面提醒时，主动启用桌面通道并勾选独立窗口，先发送测试通知。
+比如，明天上午想用 Codex 整理一个项目：先安排 09:00–10:00，保存，设好开工前提醒。到时间打开 Codex 开始工作，结束后记下实际用时。日常用这几步就够了。
 
-详见[使用说明](development/v0143/docs/USER_GUIDE_ZH.md)和[首次验收例子](development/v0143/docs/FIRST_RUN_WALKTHROUGH_ZH.md)。
+## 第一次打开
 
-目前为未签名预览程序，不是安装器，未完成所有 Windows 环境兼容性验证。不要为运行程序关闭系统安全保护。
+1. 下载上面的 ZIP，完整解压到一个文件夹。
+2. 双击 `QuotaLab.exe`，保留旁边的 `_internal` 文件夹。
+3. 确保这台电脑上的 Codex 客户端已经安装并登录，等待概览显示额度。
+4. 在“需求规划”里创建一段将来的工作时间。
 
-## 隐私与边界
+想试试桌面提醒？启用“Windows 桌面开工提醒”，勾选“独立桌面提醒窗口”，发送一条测试通知，再最小化浏览器看看。
 
-程序监听本机回环地址 `127.0.0.1:18861`，不是公网服务。计划、历史和通知偏好默认保存在本机；不应将运行数据或日志上传到 Issue。
+更详细的例子见[首次使用](docs/首次使用.md)。
 
-本工具不会增加、购买或保证恢复额度，也不会因保存计划而执行 AI 任务。公开服务状态读取为主动启用的联网功能。
+## 几件值得知道的事
 
-详见 [PRIVACY.md](PRIVACY.md) 和 [SECURITY.md](SECURITY.md)。
+QuotaLab 在本机运行，浏览器里的 `127.0.0.1` 就是你的电脑。计划和历史也保存在本机。关闭网页后，后台仍可以提醒；彻底退出请到设置里操作。
 
-## 开发与构建
+额度建议参考的是账户当前返回的读数。定时任务区负责整理说明，已有官方任务仍在官方应用里查看和管理。
 
-源码位于 `development/v0143`；根目录不混放旧版应用。Windows 源码运行需安装 `tzdata` 时区数据；完整 Windows 构建工具链见 `requirements-build.txt`。
+目前提供 Windows x64 便携版，程序尚未签名。详细说明见[隐私说明](PRIVACY.md)和[安全说明](SECURITY.md)。QuotaLab 是独立项目。
+
+## 想看看代码？
+
+| 目录 | 内容 |
+| --- | --- |
+| `app/` | 应用源码、界面和测试 |
+| `scripts/` | Windows 构建与安装包检查入口 |
+| `docs/` | 使用指南和版本记录 |
+| `.github/` | GitHub 自动测试、打包和依赖更新配置；这是平台约定的目录名 |
+
+从源码体验：
 
 ```powershell
-cd development/v0143
+cd app
 python -m pip install tzdata==2025.3
-python quota_lab.py start --mock --no-browser
-# 另开浏览器访问本机地址进行模拟体验；不读取真实额度。
+python quota_lab.py start --mock
 ```
 
-构建使用 CPython 3.14.0，在 Windows 上执行：
+模拟模式可以先体验界面和规划流程。退出后，去掉 `--mock` 即可使用本机已登录的 Codex 账户。
+
+构建 Windows 版使用 Python 3.14.0，在项目根目录运行：
 
 ```powershell
-python -m pip install -r requirements-build.txt
-./scripts/build_windows_v0143.ps1 -BuildTag plan-aware-v0143-r31
+python -m pip install -r app/requirements-build.txt
+./scripts/build-windows.ps1
 ```
 
-GitHub Actions 的 Windows preview release 工作流包含集中回归、隔离浏览器验收、构建和解压后的模拟启动检查。首次上传后需在 Actions 手动运行并确认结果；本机通过不等于远端 CI 通过。推送 `v0.14.3-r31` 标签才会在检查通过后创建 **草稿预发布**，不会自动公开发布。
-
-本源码目录经过文件白名单筛选，未包含历史 Git 记录、本机账号资料、运行日志、历史构建包或真实观测衍生测试夹具。发布说明见 [r31 修复说明](development/v0143/docs/RELEASE_NOTES_v0143_r31.md)。
+欢迎在 [Issues](https://github.com/Zhongzhi18/QuotaLab/issues) 提建议、报告问题。附上版本和操作步骤就很有帮助，截图前记得遮住私人内容。
 
 ## 许可证
 
-[MIT](LICENSE)。贡献者提交问题时请使用最小复现并删除私人内容。
+[MIT](LICENSE) · [第三方软件说明](THIRD_PARTY_NOTICES.md)

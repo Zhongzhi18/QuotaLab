@@ -87,7 +87,7 @@ class UiRefinementR16Tests(unittest.TestCase):
         self.assertIn("plan-aware-v0143-r25", self.build)
         self.assertIn("QuotaLab/_internal/ui_interaction.js", self.build)
         self.assertIn("0.14.3.19", version)
-        self.assertIn("v0.14.3 · r31", self.art)
+        self.assertIn("v1.0.0", self.art)
         self.assertTrue((ROOT / 'packaging' / 'version_info-v0143-r15.txt').is_file())
         self.assertTrue((ROOT / 'packaging' / 'version_info-v0143-r16.txt').is_file())
 

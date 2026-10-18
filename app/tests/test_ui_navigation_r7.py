@@ -81,7 +81,7 @@ class NavigationSimplificationTests(unittest.TestCase):
 
     def test_revision_marker_is_current_candidate(self):
         art = (ROOT / "ui_art_direction.js").read_text(encoding="utf-8")
-        self.assertIn("v0.14.3 · r31", art)
+        self.assertIn("v1.0.0", art)
 
 
 if __name__ == "__main__":

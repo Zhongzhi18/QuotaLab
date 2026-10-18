@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory = $true)][string]$ZipPath,
-    [string]$ExpectedVersion = '0.14.3-plan-aware-preview',
+    [string]$ExpectedVersion = '1.0.0',
     [ValidateRange(1024, 65535)][int]$Port = 18894
 )
 
@@ -30,7 +30,7 @@ try {
     if (-not (Test-Path -LiteralPath $Exe -PathType Leaf)) {
         throw 'PORTABLE_EXECUTABLE_NOT_FOUND'
     }
-    if ([Diagnostics.FileVersionInfo]::GetVersionInfo($Exe).FileVersion -ne '0.14.3.31') {
+    if ([Diagnostics.FileVersionInfo]::GetVersionInfo($Exe).FileVersion -ne '1.0.0.0') {
         throw 'PORTABLE_FILE_VERSION_MISMATCH'
     }
 

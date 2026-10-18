@@ -82,7 +82,7 @@ from window_state import (
 )
 
 
-APP_VERSION = "0.14.3-plan-aware-preview"
+APP_VERSION = "1.0.0"
 DEFAULT_PORT = 18861
 EXPERIMENT_TIMEOUT_SECONDS = 15 * 60
 REQUEST_TIMEOUT_SECONDS = 15 * 60

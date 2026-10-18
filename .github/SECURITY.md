@@ -2,9 +2,7 @@
 
 ## Supported versions
 
-Security fixes target the latest supported `0.x` release. Preview builds are not
-stable releases; each release page must state whether that exact build is
-supported.
+Security fixes target the current `1.0.x` release series.
 
 ## Reporting a vulnerability
 

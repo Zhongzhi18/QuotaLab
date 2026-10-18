@@ -254,7 +254,7 @@ function applyArtDirection() {
   const brand = $('.brand-mark');
   if (brand && !brand.querySelector('[data-art-direction-mark]')) brand.innerHTML = artDirectionMark;
   const version = $('.version');
-  if (version) version.textContent = 'v0.14.3 · r31';
+  if (version) version.textContent = 'v1.0.0';
   applyUsageGuide();
   applyTaskPreparation();
   enhanceTaskWorkbench();
@@ -264,7 +264,7 @@ function applyArtDirection() {
   if (page) {
     const textWalker = document.createTreeWalker(page, NodeFilter.SHOW_TEXT);
     let textNode;
-    while ((textNode = textWalker.nextNode())) if (textNode.nodeValue.includes('v0.14.1')) textNode.nodeValue = textNode.nodeValue.replaceAll('v0.14.1', 'v0.14.3');
+    while ((textNode = textWalker.nextNode())) if (textNode.nodeValue.includes('v0.14.1')) textNode.nodeValue = textNode.nodeValue.replaceAll('v0.14.1', 'v1.0.0');
   }
   const icon = document.querySelector('link[rel="icon"]');
   if (icon && !icon.dataset.artDirection) { icon.href = 'data:image/svg+xml,' + encodeURIComponent(artDirectionMark); icon.dataset.artDirection = 'true'; }

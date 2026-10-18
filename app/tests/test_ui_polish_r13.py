@@ -43,7 +43,7 @@ class UiPolishR13Tests(unittest.TestCase):
 
     def test_candidate_has_a_new_non_overwriting_build_target(self):
         self.assertIn("plan-aware-v0143-r15", self.build)
-        self.assertIn("v0.14.3 · r31", self.art)
+        self.assertIn("v1.0.0", self.art)
 
 
 if __name__ == "__main__":

@@ -6,6 +6,6 @@ updates:
       interval: weekly
 
   - package-ecosystem: pip
-    directory: /development/v0143
+    directory: /app
     schedule:
       interval: weekly
