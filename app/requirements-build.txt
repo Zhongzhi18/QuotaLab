@@ -7,4 +7,4 @@ pyinstaller-hooks-contrib==2026.7
 pywin32-ctypes==0.2.3
 setuptools==80.10.2
 # IANA time zones are not supplied by Windows; match the locally tested data.
-tzdata==2025.3
+tzdata==2026.5
