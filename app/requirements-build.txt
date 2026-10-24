@@ -3,7 +3,7 @@ pyinstaller==6.22.3
 altgraph==0.17.5
 packaging==25.0
 pefile==2024.8.26
-pyinstaller-hooks-contrib==2026.7
+pyinstaller-hooks-contrib==2026.9
 pywin32-ctypes==0.2.3
 setuptools==80.10.2
 # IANA time zones are not supplied by Windows; match the locally tested data.
